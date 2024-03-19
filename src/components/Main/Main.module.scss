@@ -59,14 +59,15 @@
       display: flex;
       flex-direction: column;
       width: 100%;
+      gap: 10px;
       height:  fit-content;
       justify-content: center;
       align-items: center;
+      background-color: #8c9097;
 
       &__title {
        display: block;
-       margin-top: 0;
-       background-color: #8c9097;
+       margin: 0;
        width: 100%; 
        color: gold;
        text-align: center;
@@ -74,17 +75,33 @@
 
       &__block {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
+        align-items: center;
         gap: 32px;
-        background-color: gold;
+        width: 400px;
+        background-color: rgba(17, 166, 12, 0.58);
         justify-content: center;
         flex-wrap: wrap;
 
-          .smileGif {
+        &  .smileGif {
             display: flex;
             width: 200px;
             height: 200px;
             flex-direction: column;
+        }
+
+        & .count {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+          height: 60px;
+          background-color: azure;
+          font-size: 48px;
+          margin-top: 30px;
+          margin-left: 0;
+          margin-right: 0;
+          margin-bottom: 0;
         }
       }
     }

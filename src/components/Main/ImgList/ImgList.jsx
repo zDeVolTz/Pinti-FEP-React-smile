@@ -6,33 +6,30 @@ class ImgList extends Component {
     
     constructor(props){
         super(props);
-        const { name , id , count, isWinner} = this.props.imgData;
+        const { name , id , count } = this.props.imgData;
 
         this.id = id;
         this.name = name;
 
         this.state = {
             imgCount : count,
-            isWinner : isWinner
         }
 
         this.handleClick = this.handleClick.bind(this);
     }
 
     handleClick() {
-        if (!this.state.isWinner) {
-            this.props.updateImgCount(this.props.imgData.id);
+        if (typeof this.props.updateImgCount === 'function') {
+            this.props.updateImgCount(this.id);
         }
     }
 
     componentDidUpdate(prevProps) {
+
         if (prevProps.imgData.count !== this.props.imgData.count) {
             this.setState({ imgCount: this.props.imgData.count });
         }
-    
-        if (prevProps.imgData.isWinner !== this.props.imgData.isWinner) {
-            this.setState({ isWinner: this.props.imgData.isWinner });
-        }
+        
     }
 
     render() {
@@ -44,7 +41,7 @@ class ImgList extends Component {
 							onClick={() => this.handleClick()}
 							alt=""
 						/>
-						{!this.state.isWinner && <p className={style.count}>{this.state.imgCount}</p>}
+						{<p className={style.count}>{this.state.imgCount}</p>}
 					</div>
 				);
     }

@@ -14,9 +14,9 @@ class Main extends Component {
                 name : element.imgName,
                 id: uniqid(),
                 count: 0,
-                isWinner : false
             })),
-            winnersData : []
+            winnersData : [],
+            winnersId : []
         }
         
         this.handleClick = this.handleClick.bind(this);
@@ -44,16 +44,18 @@ class Main extends Component {
     
 
     maxCount() {
-       const result = this.state.imgData.reduce((max,item) => ( (max > item.count) ? max : item.count ) ,0)
-       return result;
+        return this.state.imgData.reduce((max,item) => ( (max > item.count) ? max : item.count ) ,0)
     }
 
     handleClick() {
         const maxCountValue = this.maxCount();
-        const winnersImgData = this.state.imgData
-					.filter((element) => element.count === maxCountValue)
-					.map((element) => ({ ...element, isWinner: true }));
-        this.setState({ winnersData:  winnersImgData })
+        const winnersImgData = this.state.imgData.filter((element) => element.count === maxCountValue)
+        if(winnersImgData.length === 1){
+            this.setState(prevState => ({
+                winnersData: winnersImgData,
+                winnersId: [...prevState.winnersId, winnersImgData[0].id]
+              }));
+        } 
     }
 
     render() {
@@ -73,15 +75,12 @@ class Main extends Component {
 						</div>
 						{this.state.winnersData.length > 0 && (
                             <div className= {style.winnerList}>
-                                <h2 className= {style.winnerList__title}>
-                                    {this.state.winnersData.length === 1 ? 'Переможець': 'Переможці'}
-                                </h2>
                                 <div className={style.winnerList__block}>
+                                    <h2 className= {style.winnerList__title}> Переможець </h2>
                                     {this.state.winnersData.map((element) => (
                                         <ImgList
                                             key={`winnerList-${element.id}`}
                                             imgData={element}
-                                            updateImgCount={this.updateImgCount}
                                         />
                                     ))}
                                 </div>
